@@ -1,13 +1,19 @@
-import { FC, useRef } from "react"
-import Draggable from "react-draggable"
+import { useDraggable } from "@dnd-kit/react"
+import { FC } from "react"
 
-export const WateringCan: FC = () => {
-  const nodeRef = useRef(null)
+export interface IWateringCan {
+  id: string
+}
+
+export const WateringCan: FC<IWateringCan> = ({ id }) => {
+  const { ref } = useDraggable({
+    id: id,
+  })
   return (
-    <Draggable nodeRef={nodeRef} bounds="parent">
-      <div ref={nodeRef} className="block bg-gray-400 text-white p-2">
-        Watering can
-      </div>
-    </Draggable>
+    <div ref={ref} className="block bg-gray-400 text-white p-2">
+      Watering
+      <br />
+      can
+    </div>
   )
 }

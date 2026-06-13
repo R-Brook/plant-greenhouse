@@ -2,21 +2,55 @@
 
 import { Plant } from "@/components/Plant"
 import { WateringCan } from "@/components/Watering-Can"
+import { PlantGrowthStates } from "@/data/plant-states"
+import { IPlants } from "@/types"
+import { DragDropProvider } from "@dnd-kit/react"
+import { useState } from "react"
 
 export const Home = () => {
+  const plantsInitialStates = {
+    plantA: {
+      growth: PlantGrowthStates[0],
+      timesWatered: 0,
+    },
+    plantB: {
+      growth: PlantGrowthStates[1],
+      timesWatered: 0,
+    },
+    plantC: {
+      growth: PlantGrowthStates[2],
+      timesWatered: 0,
+    },
+  }
+
+  const [plantStates, setPlantStates] = useState<IPlants>(plantsInitialStates)
+
+  const [parent, setParent] = useState<string | undefined>(undefined)
+  const draggable = <WateringCan id="draggable" />
   return (
     <div>
-      <main className="h-dvh">
+      <main>
         <h1 className="block w-full text-center mb-6">Plant Greenhouse</h1>
         <div className="flex size-full justify-center">
-          <div
-            id="greenhouse"
-            className="relative flex flex-wrap items-start size-10/12 p-10 bg-amber-800 gap-2"
+          <DragDropProvider
+            onDragEnd={(event) => {
+              if (event.canceled) return
+              setParent(event.operation.target?.id as string)
+            }}
           >
-            <Plant uid="one" />
-            <Plant uid="two" />
-            <WateringCan />
-          </div>
+            <div className="relative flex flex-wrap items-start size-10/12 p-10 bg-amber-800 gap-4">
+              <Plant key="A" id="A" growthState={plantStates.plantA.growth}>
+                {parent === "A" ? draggable : null}
+              </Plant>
+              <Plant key="B" id="B" growthState={plantStates.plantB.growth}>
+                {parent === "B" ? draggable : null}
+              </Plant>
+              <Plant key="C" id="C" growthState={plantStates.plantC.growth}>
+                {parent === "C" ? draggable : null}
+              </Plant>
+              <div>{parent == null ? draggable : null}</div>
+            </div>
+          </DragDropProvider>
         </div>
       </main>
     </div>
