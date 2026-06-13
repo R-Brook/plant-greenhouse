@@ -14,11 +14,13 @@ export const Plant: FC<IPlant> = ({ id, growthState, children }) => {
     <div
       ref={ref}
       id={id}
-      className="block bg-green-600 text-white p-2 h-22 w-22"
+      className="grid bg-green-600 text-white p-2 h-22 w-22"
     >
-      Plant {id}
-      <br />
-      {growthState}
+      <span className="row-span-full col-span-full">
+        Plant {id}
+        <br />
+        {growthState}
+      </span>
       {children}
     </div>
   )

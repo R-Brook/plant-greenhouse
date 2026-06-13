@@ -10,7 +10,10 @@ export const WateringCan: FC<IWateringCan> = ({ id }) => {
     id: id,
   })
   return (
-    <div ref={ref} className="block bg-gray-400 text-white p-2">
+    <div
+      ref={ref}
+      className="grid row-span-full col-span-full bg-gray-400 text-white p-2"
+    >
       Watering
       <br />
       can
