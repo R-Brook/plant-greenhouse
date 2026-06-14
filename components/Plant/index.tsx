@@ -1,5 +1,6 @@
 import { plantGrowthStates } from "@/data/plant-states"
 import { useDroppable } from "@dnd-kit/react"
+import { pointerIntersection } from "@dnd-kit/collision"
 import { FC } from "react"
 
 export interface IPlant {
@@ -18,7 +19,10 @@ export const Plant: FC<IPlant> = ({ id, timesWatered, children }) => {
           ? plantGrowthStates[2]
           : plantGrowthStates[3]
 
-  const { ref } = useDroppable({ id })
+  const { ref, isDropTarget } = useDroppable({
+    id,
+    collisionDetector: pointerIntersection,
+  })
 
   return (
     <div
@@ -30,6 +34,8 @@ export const Plant: FC<IPlant> = ({ id, timesWatered, children }) => {
         Plant {id}
         <br />
         {growth}
+        <br />
+        {isDropTarget ? "Watering" : ""}
       </span>
       {children}
     </div>
