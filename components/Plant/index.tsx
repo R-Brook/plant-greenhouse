@@ -1,15 +1,16 @@
 import { plantGrowthStates } from "@/data/plant-states"
 import { useDroppable } from "@dnd-kit/react"
-import { pointerIntersection } from "@dnd-kit/collision"
-import { FC } from "react"
+import { shapeIntersection } from "@dnd-kit/collision"
+import { FC, useEffect, useState } from "react"
 
 export interface IPlant {
   id: string
-  timesWatered: number
   children: React.ReactNode
 }
 
-export const Plant: FC<IPlant> = ({ id, timesWatered, children }) => {
+export const Plant: FC<IPlant> = ({ id, children }) => {
+  const [timesWatered, setTimesWatered] = useState(0)
+
   const growth =
     timesWatered < 2
       ? plantGrowthStates[0]
@@ -21,19 +22,28 @@ export const Plant: FC<IPlant> = ({ id, timesWatered, children }) => {
 
   const { ref, isDropTarget } = useDroppable({
     id,
-    collisionDetector: pointerIntersection,
+    collisionDetector: shapeIntersection,
   })
+
+  useEffect(() => {
+    const waterPlant = () => {
+      setTimesWatered(timesWatered + 1)
+    }
+    if (isDropTarget) {
+      waterPlant()
+    }
+  }, [id, isDropTarget])
 
   return (
     <div
       ref={ref}
       id={id}
-      className="grid bg-green-600 text-white p-2 h-22 w-22"
+      className={`grid text-white p-2 h-22 w-22 ${isDropTarget ? "bg-green-500" : "bg-green-600"}`}
     >
       <span className="row-span-full col-span-full">
-        Plant {id}
-        <br />
         {growth}
+        <br />
+        Watered: {timesWatered}
         <br />
         {isDropTarget ? "Watering" : ""}
       </span>
