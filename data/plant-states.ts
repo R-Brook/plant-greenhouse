@@ -1,4 +1,4 @@
-export const PlantGrowthStates = [
+export const plantGrowthStates = [
   "seed", // 0-1
   "seedling", // 2-6
   "small plant", // 7-15
