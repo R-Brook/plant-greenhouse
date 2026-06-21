@@ -4,21 +4,8 @@ import { useState } from "react"
 import { DragDropProvider } from "@dnd-kit/react"
 import { Plant } from "@/components/Plant"
 import { WateringCan } from "@/components/Watering-Can"
-import { IPlants } from "@/types"
 
 export const Home = () => {
-  const plantsInitialStates = {
-    plantA: {
-      timesWatered: 0,
-    },
-    plantB: {
-      timesWatered: 0,
-    },
-    plantC: {
-      timesWatered: 0,
-    },
-  }
-
   const [parent, setParent] = useState<string | undefined>(undefined)
   const draggable = <WateringCan id="draggable" />
 
@@ -34,7 +21,7 @@ export const Home = () => {
               setParent(event.operation.target?.id as string)
             }}
           >
-            <div className="relative flex flex-wrap items-start size-10/12 p-10 bg-amber-800 gap-4">
+            <div className="relative flex flex-wrap items-start size-10/12 p-10  gap-4">
               <Plant key="A" id="A">
                 {parent === "A" ? draggable : null}
               </Plant>
