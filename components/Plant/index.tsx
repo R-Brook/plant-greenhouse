@@ -21,6 +21,37 @@ export const Plant: FC<IPlant> = ({ id, children }) => {
           ? plantGrowthStates[2]
           : plantGrowthStates[3]
 
+  const imageDetails = [
+    {
+      file: null,
+      class: "",
+    },
+    {
+      file: "/plants/mature-sunflower.gif",
+      class: "bottom-16 left-8 size-[40%]",
+    },
+    {
+      file: "/plants/mature-sunflower.gif",
+      class: "bottom-15 left-3 size-[80%]",
+    },
+    {
+      file: "/plants/twin-sunflower.gif",
+      class: "bottom-15",
+    },
+  ]
+
+  let imageFile = null
+  let imageClasses = ""
+
+  const setImage = () => {
+    const index = plantGrowthStates.indexOf(growth)
+
+    imageFile = imageDetails[index >= 0 ? index : 0].file
+    imageClasses = imageDetails[index >= 0 ? index : 0].class
+  }
+
+  setImage()
+
   const { ref, isDropTarget } = useDroppable({
     id,
     // disabled: true,  - when it's not ready to be watered, can set this to true
@@ -51,28 +82,10 @@ export const Plant: FC<IPlant> = ({ id, children }) => {
           width={100}
           height={100}
         />
-        {growth === plantGrowthStates[1] && (
+        {imageFile && (
           <Image
-            src={"/plants/mature-sunflower.gif"}
-            className="absolute bottom-16 left-8 size-[40%]"
-            alt={""}
-            width={150}
-            height={100}
-          />
-        )}
-        {growth === plantGrowthStates[2] && (
-          <Image
-            src={"/plants/mature-sunflower.gif"}
-            className="absolute bottom-15 left-3 size-[80%]"
-            alt={""}
-            width={100}
-            height={100}
-          />
-        )}
-        {growth === plantGrowthStates[3] && (
-          <Image
-            src={"/plants/twin-sunflower.gif"}
-            className="absolute bottom-15"
+            src={imageFile}
+            className={`absolute ${imageClasses}`}
             alt={""}
             width={100}
             height={100}

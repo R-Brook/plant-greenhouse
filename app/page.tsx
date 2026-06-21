@@ -31,6 +31,9 @@ export const Home = () => {
               <Plant key="C" id="C">
                 {parent === "C" ? draggable : null}
               </Plant>
+              <Plant key="D" id="D">
+                {parent === "D" ? draggable : null}
+              </Plant>
               <div>{parent == null ? draggable : null}</div>
             </div>
           </DragDropProvider>
