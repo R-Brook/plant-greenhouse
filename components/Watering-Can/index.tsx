@@ -1,5 +1,6 @@
 import { useDraggable } from "@dnd-kit/react"
 import { FC } from "react"
+import Image from "next/image"
 
 export interface IWateringCan {
   id: string
@@ -12,11 +13,15 @@ export const WateringCan: FC<IWateringCan> = ({ id }) => {
   return (
     <div
       ref={ref}
-      className="grid row-span-full col-span-full bg-gray-400 text-white p-2"
+      className={`grid row-span-full col-span-full size-40  text-white p-2`}
     >
-      Watering
-      <br />
-      can
+      <Image
+        src={"/watering-can.png"}
+        className=""
+        alt={""}
+        width={100}
+        height={100}
+      />
     </div>
   )
 }
