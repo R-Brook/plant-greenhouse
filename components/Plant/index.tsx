@@ -45,7 +45,7 @@ export const Plant: FC<IPlant> = ({ id, children }) => {
       <span className="relative row-span-full col-span-full">
         {/* {isDropTarget ? "Watering" : ""} */}
         <Image
-          src={"/plants/empty-flower-pot.gif"}
+          src={"/plants/flower-pot.gif"}
           className="absolute bottom-7 left-2 size-20"
           alt={""}
           width={100}
@@ -53,8 +53,8 @@ export const Plant: FC<IPlant> = ({ id, children }) => {
         />
         {growth === plantGrowthStates[1] && (
           <Image
-            src={"/plants/seedling-sunflower.png"}
-            className="absolute bottom-16 left-5 size-[60%]"
+            src={"/plants/mature-sunflower.gif"}
+            className="absolute bottom-16 left-8 size-[40%]"
             alt={""}
             width={150}
             height={100}
