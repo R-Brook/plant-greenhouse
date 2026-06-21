@@ -1,4 +1,4 @@
-import { plantGrowthStates } from "@/data/plant-states"
+import { plantImageDetails, plantGrowthStates } from "@/data/plant-states"
 import { useDroppable } from "@dnd-kit/react"
 import { pointerIntersection } from "@dnd-kit/collision"
 import { FC, useEffect, useState } from "react"
@@ -21,33 +21,14 @@ export const Plant: FC<IPlant> = ({ id, children }) => {
           ? plantGrowthStates[2]
           : plantGrowthStates[3]
 
-  const imageDetails = [
-    {
-      file: null,
-      class: "",
-    },
-    {
-      file: "/plants/mature-sunflower.gif",
-      class: "bottom-16 left-8 size-[40%]",
-    },
-    {
-      file: "/plants/mature-sunflower.gif",
-      class: "bottom-15 left-3 size-[80%]",
-    },
-    {
-      file: "/plants/twin-sunflower.gif",
-      class: "bottom-15",
-    },
-  ]
-
   let imageFile = null
   let imageClasses = ""
 
   const setImage = () => {
     const index = plantGrowthStates.indexOf(growth)
 
-    imageFile = imageDetails[index >= 0 ? index : 0].file
-    imageClasses = imageDetails[index >= 0 ? index : 0].class
+    imageFile = plantImageDetails[index >= 0 ? index : 0].file
+    imageClasses = plantImageDetails[index >= 0 ? index : 0].class
   }
 
   setImage()
@@ -71,27 +52,25 @@ export const Plant: FC<IPlant> = ({ id, children }) => {
     <div
       ref={ref}
       id={id}
-      className={`grid text-white p-2 h-28 w-28 bg-[url(/plant-stands/1.png)] bg-contain bg-no-repeat bg-bottom`}
+      className={`relative flex justify-center items-center text-white p-2 pb-8 h-28 w-28 bg-[url(/plant-stands/1.png)] bg-contain bg-no-repeat bg-bottom`}
     >
-      <span className="relative row-span-full col-span-full">
-        {/* {isDropTarget ? "Watering" : ""} */}
+      {/* {isDropTarget ? "Watering" : ""} */}
+      <Image
+        src={"/plants/flower-pot.gif"}
+        className="size-20"
+        alt={""}
+        width={100}
+        height={100}
+      />
+      {imageFile && (
         <Image
-          src={"/plants/flower-pot.gif"}
-          className="absolute bottom-7 left-2 size-20"
+          src={imageFile}
+          className={`absolute ${imageClasses}`}
           alt={""}
           width={100}
           height={100}
         />
-        {imageFile && (
-          <Image
-            src={imageFile}
-            className={`absolute ${imageClasses}`}
-            alt={""}
-            width={100}
-            height={100}
-          />
-        )}
-      </span>
+      )}
       {children}
     </div>
   )
