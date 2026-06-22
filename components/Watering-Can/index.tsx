@@ -4,23 +4,21 @@ import Image from "next/image"
 
 export interface IWateringCan {
   id: string
+  wateringCounter: number
 }
 
-export const WateringCan: FC<IWateringCan> = ({ id }) => {
-  const { ref } = useDraggable({
-    id: id,
-  })
+export const WateringCan: FC<IWateringCan> = ({ id, wateringCounter }) => {
+  const { ref } = useDraggable({ id })
+
   return (
-    <div
-      ref={ref}
-      className={`grid row-span-full col-span-full size-40  text-white p-2`}
-    >
+    <div ref={ref} className="size-40 p-2">
       <Image
-        src={"/watering-can.png"}
-        className=""
-        alt={""}
+        key={wateringCounter}
+        src="/watering-can.png"
+        alt=""
         width={100}
         height={100}
+        className={wateringCounter > 0 ? "animate-pour" : ""}
       />
     </div>
   )
